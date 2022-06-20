@@ -8,14 +8,10 @@ namespace WebBackendService.Controllers
     public class PlatformAdminController : ControllerBase
     {
         private readonly ILogger _logger;
-        public PlatformAdminController()
+        public PlatformAdminController(ILogger<PlatformAdminController> Logger)
         {
+            _logger = Logger;
         }
 
-        [HttpGet("Login", Name = "")]
-        public async Task<IActionResult> Login()
-        {
-            return Ok("fuck u");
-        }
     }
 }

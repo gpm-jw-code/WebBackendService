@@ -8,10 +8,25 @@
 
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\" />
+    <Folder Include="Models\" />
+    <Folder Include="Models\USER\" />
+    <Folder Include="Models\UI\" />
+    <Folder Include="Models\Platform\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Models\" />
+    <None Remove="Models\USER\" />
+    <None Remove="Newtonsoft.Json" />
+    <None Remove="Models\UI\" />
+    <None Remove="Models\Platform\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="Users\UsersList.json" />
+  </ItemGroup>
 </Project>

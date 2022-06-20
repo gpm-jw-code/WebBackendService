@@ -1,3 +1,5 @@
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -22,7 +24,7 @@ if (app.Environment.IsDevelopment())
 
 
 
-app.UseCors(options => options.AllowAnyOrigin());
+app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UsePathBase(new PathString("/index.html"));
@@ -30,5 +32,10 @@ app.UseAuthorization();
 
 app.MapDefaultControllerRoute();
 app.MapRazorPages();
+app.UseForwardedHeaders();
+
+WebBackendService.Models.USER.UserManager.LoadUsersList();
+WebBackendService.Utilities.LoadPlatformConfig();
+
 
 app.Run();
