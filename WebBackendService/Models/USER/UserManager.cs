@@ -11,11 +11,12 @@ namespace WebBackendService.Models.USER
         public static string USERS_LIST_FILE_FULL_NAME => Path.Combine(USERS_DATA_SAVE_FOLDER, USERS_LIST_FILE_NAME);
 
         public static List<User> UsersList = new List<User>();
-        
+
+
         public static bool TryCreate(string accountName, string userName, string password, out string message, int level = 0)
         {
             message = "";
-            if(UsersList.Any(u=>u.UserName==userName))
+            if (UsersList.Any(u => u.UserName == userName))
             {
                 message = $"帳戶已經存在({userName})";
                 return false;
@@ -54,7 +55,7 @@ namespace WebBackendService.Models.USER
         }
 
 
-        private static void SaveUsersList()
+        internal static void SaveUsersList()
         {
             Directory.CreateDirectory(USERS_DATA_SAVE_FOLDER);
             File.WriteAllText(USERS_LIST_FILE_FULL_NAME, JsonConvert.SerializeObject(UsersList, Formatting.Indented));
@@ -68,6 +69,26 @@ namespace WebBackendService.Models.USER
             {
                 SaveUsersList();
             }
+        }
+
+        internal static bool ChangePassword(ChangePasswordModel changePasswordModel, out string message)
+        {
+            message = "";
+            var user = UsersList.FirstOrDefault(user => user.UserName == changePasswordModel.UserName);
+            if (user == null)
+            {
+                message = $"用戶({changePasswordModel.UserName})不存在";
+                return false;
+            }
+            if (user.Password != changePasswordModel.oldPassword)
+            {
+                message = "原密碼輸入錯誤";
+                return false;
+            }
+
+            user.Password = changePasswordModel.newPassword;
+            SaveUsersList();
+            return true;
         }
     }
 }

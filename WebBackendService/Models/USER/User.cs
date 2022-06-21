@@ -1,32 +1,44 @@
 ﻿using System;
 namespace WebBackendService.Models.USER
 {
-	public class User
-	{
-		public User()
-		{
-		}
-		public string AccountName { get; set; } = "visitor";
-		public string UserName { get; set; } = "visitor";
-		public string Password { get; set; }
-		public int Level { get; set; } = 0;
-	}
-
-
-	public class ResultBase
+    public class User
     {
-		public bool Success { get; set; } = false;
-		public string Message { get; set; } = "";
-		public string UserName { get; set; }
+        public User()
+        {
+        }
+        public string AccountName { get; set; } = "visitor";
+        public string UserName { get; set; } = "visitor";
+        public string Password { get; set; }
+        public int Level { get; set; } = 0;
 
-	}
+        internal User clone()
+        {
+            return new User
+            {
+                AccountName = AccountName,
+                UserName = UserName,
+                Level = Level,
+                Password = Password
+            };
+        }
 
-	public class LoginResult:ResultBase
+    }
+
+
+    public class ResultBase
     {
-		public int Level { get; set; } = 0;
-	}
+        public bool Success { get; set; } = false;
+        public string Message { get; set; } = "";
+        public string UserName { get; set; }
 
-	public class RegistResult : ResultBase
+    }
+
+    public class LoginResult : ResultBase
+    {
+        public int Level { get; set; } = 0;
+    }
+
+    public class RegistResult : ResultBase
     {
 
     }

@@ -12,17 +12,18 @@ namespace WebBackendService.Controllers
     public class UIInitializeController : Controller
     {
         [HttpGet]
-        public async Task<clsStartupPageMode> GetStartUpPageMode()
+        public async Task<IActionResult> GetStartUpPageMode()
         {
-            return Utilities.platformConfigs.startupPageMode;
+            return Ok(Utilities.platformConfigs.startupPageMode);
         }
-        //[HttpPost(Name ="F")]
-        //public async Task<IActionResult> SetStartUpPageModeFromBody( [ FromBody] clsStartupPageMode mode)
-        //{
-        //    Utilities.platformConfigs.startupPageMode = mode;
-        //    Utilities.SavePlotformConfig();
-        //    return Ok();
-        //}
+
+        [HttpPost("SetStartUpPageMode",Name = "F")]
+        public async Task<IActionResult> SetStartUpPageModeFromBody([FromBody] clsStartupPageMode mode)
+        {
+            Utilities.platformConfigs.startupPageMode = mode;
+            Utilities.SavePlotformConfig();
+            return Ok();
+        }
 
         [HttpPost]
         public async Task<IActionResult> SetStartUpPageMode(clsStartupPageMode mode)
